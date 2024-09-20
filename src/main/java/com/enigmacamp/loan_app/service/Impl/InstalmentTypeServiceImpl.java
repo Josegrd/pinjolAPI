@@ -1,5 +1,6 @@
 package com.enigmacamp.loan_app.service.Impl;
 
+import com.enigmacamp.loan_app.constant.EInstalmentType;
 import com.enigmacamp.loan_app.dto.request.InstalmentTypeRequest;
 import com.enigmacamp.loan_app.dto.response.InstalmentTypeResponse;
 import com.enigmacamp.loan_app.entity.InstalmentType;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -58,6 +60,12 @@ public class InstalmentTypeServiceImpl implements InstalmentTypeService {
         instalmentTypeRepository.deleteById(id);
     }
 
+
+    @Override
+    public InstalmentType getById(String id) {
+        return instalmentTypeRepository.findById(id).orElse(null);
+    }
+
     public InstalmentType findByIdOrThrowNotFoundException(String id) {
         return instalmentTypeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Instalment type not found"));
     }
@@ -67,5 +75,20 @@ public class InstalmentTypeServiceImpl implements InstalmentTypeService {
                 .Id(instalmentType.getId())
                 .InstalmentType(instalmentType.getInstalmentType())
                 .build();
+    }
+
+    public InstalmentType getOrSave(EInstalmentType instalmentType){
+        Optional<InstalmentType> optionalInstalmentType = instalmentTypeRepository.findByInstalmentType(instalmentType);
+        // role available return it
+        if (optionalInstalmentType.isPresent()) {
+            return optionalInstalmentType.get();
+        }
+
+        // role not available create new
+        InstalmentType instalmentType1 = InstalmentType.builder()
+                .instalmentType(instalmentType)
+                .build();
+
+        return instalmentTypeRepository.saveAndFlush(instalmentType1);
     }
 }

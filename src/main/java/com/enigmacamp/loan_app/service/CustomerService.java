@@ -12,6 +12,7 @@ public interface CustomerService {
     CustomerResponse getCustomerById(String id);
     List<CustomerResponse> getAllCustomers();
     void deleteCustomer(String id);
+    Customer getById(String id);
 
     Customer findByIdOrThrowNotFoundException(String id);
 }

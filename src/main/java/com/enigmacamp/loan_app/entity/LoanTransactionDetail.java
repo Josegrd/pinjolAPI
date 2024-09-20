@@ -19,8 +19,8 @@ public class LoanTransactionDetail {
     private String id;
     private Long transactionDate;
     private Double nominal;
-    @ManyToOne
-    @JoinColumn(name = "loan_transaction_id")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "loan_transaction_id", nullable = false)
     private LoanTransaction loanTransaction;
     private LoanStatus loanStatus; // enum
     private Long createdAt;

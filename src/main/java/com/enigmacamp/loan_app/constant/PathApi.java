@@ -6,4 +6,5 @@ public class PathApi {
     public static final String TRANSACTION = "api/v1/transactions";
     public static final String AUTH = "api/v1/auth";
     public static final String LOAN_TYPE = "api/v1/loan-types";
+    public static final String LOAN = "api/v1/loans";
 }

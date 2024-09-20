@@ -1,10 +1,7 @@
 package com.enigmacamp.loan_app.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Date;
 
@@ -14,6 +11,7 @@ import java.sql.Date;
 @Table(name = "mst_customer")
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

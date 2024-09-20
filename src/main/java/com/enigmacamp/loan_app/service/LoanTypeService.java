@@ -12,6 +12,7 @@ public interface LoanTypeService {
     List<LoanTypeResponse> getAllLoanTypes();
     LoanTypeResponse updateLoanType(LoanTypeRequest request);
     void deleteLoanType(String id);
+    LoanType getById(String id);
 
     LoanType findByIdOrThrowNotFoundException(String id);
 }

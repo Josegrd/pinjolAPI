@@ -64,6 +64,11 @@ public class LoanTypeServiceImpl implements LoanTypeService {
         loanTypeRepository.deleteById(id);
     }
 
+    public LoanType getById(String id) {
+        return loanTypeRepository.findById(id).orElseThrow(() -> new RuntimeException("Loan type not found"));
+
+    }
+
     public LoanType findByIdOrThrowNotFoundException(String id) {
         return loanTypeRepository.findById(id).orElseThrow(() -> new RuntimeException("Loan type not found"));
     }

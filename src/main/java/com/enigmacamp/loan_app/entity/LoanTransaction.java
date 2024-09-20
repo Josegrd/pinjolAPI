@@ -1,6 +1,7 @@
 package com.enigmacamp.loan_app.entity;
 
 import com.enigmacamp.loan_app.constant.ApprovalStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,25 +22,23 @@ public class LoanTransaction {
     private String id;
 
     @ManyToOne
-//    @JoinColumn(name = "loan_type_id")
     private LoanType loanType;
 
     @ManyToOne
-//    @JoinColumn(name = "instalment_type_id")
     private InstalmentType instalmentType;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
     private Customer customer;
     private Double nominal;
     private Long approvedAt;
     private String approvedBy;
-    private Long rejectedAt;
-    private String rejectedBy;
-    private ApprovalStatus approvalStatus; // enum
+    private ApprovalStatus approvalStatus;
+
+    @OneToMany (mappedBy = "loanTransaction", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<LoanTransactionDetail> loanTransactionDetails;
+
     private Long createdAt;
     private Long updatedAt;
 
-    @OneToMany
-    private List<LoanTransactionDetail> loanTransactionDetails;
 }

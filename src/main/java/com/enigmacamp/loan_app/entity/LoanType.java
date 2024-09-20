@@ -18,4 +18,7 @@ public class LoanType {
     private String id;
     private Double maxLoan;
     private String type;
+
+    @OneToOne
+    private Customer customer;
 }

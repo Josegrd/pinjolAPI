@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,7 +22,7 @@ public class TransactionResponse {
     private Long approvedAt;
     private String approvedBy;
     private ApprovalStatus approvalStatus;
-    private TransactionDetailResponse transactionDetailResponse;
+    private List<TransactionDetailResponse> transactionDetailResponses;
     private Long createdAt;
     private Long updatedAt;
 }
