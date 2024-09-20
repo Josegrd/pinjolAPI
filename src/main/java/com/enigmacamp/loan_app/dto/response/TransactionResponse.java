@@ -19,8 +19,6 @@ public class TransactionResponse {
     private Double nominal;
     private Long approvedAt;
     private String approvedBy;
-    private Long rejectedAt;
-    private String rejectedBy;
     private ApprovalStatus approvalStatus;
     private TransactionDetailResponse transactionDetailResponse;
     private Long createdAt;

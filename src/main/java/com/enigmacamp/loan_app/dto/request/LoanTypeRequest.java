@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class LoanTypeRequest {
-    private String LoanType;
+
+    private String id;
+    private String type;
     private Double maxLoan;
 }

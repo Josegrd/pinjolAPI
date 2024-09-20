@@ -13,10 +13,10 @@ import java.util.Set;
 public class ValidationUtil {
     private final Validator validator;
 
-    public void validate(Object object) {
-        Set<ConstraintViolation<Object>> violations = validator.validate(object);
-        if (violations.isEmpty()) {
-            throw new ConstraintViolationException(violations);
+    public void validate(Object obj) {
+        Set<ConstraintViolation<Object>> result = validator.validate(obj);
+        if (!result.isEmpty()) {
+            throw new ConstraintViolationException(result);
         }
     }
 }

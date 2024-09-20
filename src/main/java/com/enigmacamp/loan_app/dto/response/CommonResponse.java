@@ -14,5 +14,5 @@ import java.util.Optional;
 public class CommonResponse <T> {
     private Integer statusCode;
     private String message;
-    private Optional<T> data;
+    private T data;
 }

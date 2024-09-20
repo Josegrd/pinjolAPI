@@ -1,5 +1,6 @@
 package com.enigmacamp.loan_app.dto.response;
 
+import com.enigmacamp.loan_app.constant.EInstalmentType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,5 +12,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class InstalmentTypeResponse {
     private String Id;
-    private String InstalmentType;
+    private EInstalmentType InstalmentType;
 }
