@@ -1,4 +1,4 @@
-package com.enigmacamp.loan_app.dto.request;
+package com.enigmacamp.loan_app.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,11 +11,12 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CustomerRequest {
-    private String Id;
+public class CustomerResponse {
+    private String id;
     private String firstName;
     private String lastName;
     private Date dateOfBirth;
     private String phone;
     private String status;
+
 }
