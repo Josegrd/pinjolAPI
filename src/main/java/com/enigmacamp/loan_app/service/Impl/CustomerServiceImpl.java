@@ -73,7 +73,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     public Customer getById(String id) {
-        return customerRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found"));
+        return findByIdOrThrowNotFoundException(id);
     }
 
     public Customer findByIdOrThrowNotFoundException(String id) {

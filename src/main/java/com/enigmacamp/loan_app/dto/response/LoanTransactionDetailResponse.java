@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TransactionDetailResponse {
+public class LoanTransactionDetailResponse {
     private String id;
     private Long transactionDate;
     private Double nominal;
     private String loanStatus;
+    private Long createdAt;
+    private Long updatedAt;
 }

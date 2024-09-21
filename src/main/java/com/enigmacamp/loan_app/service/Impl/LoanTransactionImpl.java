@@ -4,17 +4,13 @@ import com.enigmacamp.loan_app.constant.ApprovalStatus;
 import com.enigmacamp.loan_app.constant.EInstalmentType;
 import com.enigmacamp.loan_app.constant.ERole;
 import com.enigmacamp.loan_app.constant.LoanStatus;
-import com.enigmacamp.loan_app.dto.request.TransactionRequest;
+import com.enigmacamp.loan_app.dto.request.LoanTransactionRequest;
 import com.enigmacamp.loan_app.entity.*;
-import com.enigmacamp.loan_app.repository.LoanTransactionDetailRepository;
 import com.enigmacamp.loan_app.repository.LoanTransactionRepository;
 import com.enigmacamp.loan_app.service.*;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -29,7 +25,7 @@ public class LoanTransactionImpl implements LoanTransactionService {
     private final InstalmentTypeService instalmentService;
     private final RoleService roleService;
 
-    public LoanTransaction addLoanTransaction(TransactionRequest request) {
+    public LoanTransaction addLoanTransaction(LoanTransactionRequest request) {
         Customer customer = service.getById(request.getCustomerId());
         LoanType loanType = loanService.getLoanTypeById(request.getLoanTypeId());
         InstalmentType instalmentType = instalmentService.getOrSave(EInstalmentType.TWELVE_MONTH);
@@ -39,21 +35,19 @@ public class LoanTransactionImpl implements LoanTransactionService {
                 .loanType(loanType)
                 .instalmentType(instalmentType)
                 .nominal(request.getNominal())
-                .approvedAt(request.getApprovedAt())
+                .approvedAt(System.currentTimeMillis())
                 .approvedBy(roleService.getOrSave(Role.builder().name(ERole.ROLE_ADMIN).build()).getName().toString())
                 .approvalStatus(ApprovalStatus.APPROVED)
-                .createdAt(request.getCreatedAt())
-                .updatedAt(request.getUpdatedAt())
+                .createdAt(System.currentTimeMillis())
+                .updatedAt(System.currentTimeMillis())
                 .build();
 
         List<LoanTransactionDetail> transactionDetails = request.getTransactionDetails().stream()
                 .map(td -> LoanTransactionDetail.builder()
-                        .transactionDate(td.getTransactionDate())
+                        .transactionDate(System.currentTimeMillis())
                         .nominal(td.getNominal())
                         .loanStatus(LoanStatus.UNPAID)
                         .loanTransaction(transaction)
-                        .createdAt(System.currentTimeMillis())
-                        .updatedAt(System.currentTimeMillis())
                         .build())
                 .collect(Collectors.toList());
 

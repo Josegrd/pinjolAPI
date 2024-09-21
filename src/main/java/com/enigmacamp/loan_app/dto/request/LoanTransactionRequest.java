@@ -1,10 +1,7 @@
 package com.enigmacamp.loan_app.dto.request;
 
 import com.enigmacamp.loan_app.constant.ApprovalStatus;
-import com.enigmacamp.loan_app.entity.Customer;
-import com.enigmacamp.loan_app.entity.InstalmentType;
 import com.enigmacamp.loan_app.entity.LoanTransactionDetail;
-import com.enigmacamp.loan_app.entity.LoanType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TransactionRequest {
+public class LoanTransactionRequest {
     private String id;
     private String customerId;
     private String loanTypeId;
@@ -26,8 +23,7 @@ public class TransactionRequest {
     private Long approvedAt;
     private String approvedBy;
     private ApprovalStatus approvalStatus;
-    @JsonIgnore
-    private List<LoanTransactionDetail> transactionDetails = new ArrayList<>(); //
+    private List<LoanTransactionDetail> transactionDetails = new ArrayList<>();
     private Long createdAt;
     private Long updatedAt;
 }

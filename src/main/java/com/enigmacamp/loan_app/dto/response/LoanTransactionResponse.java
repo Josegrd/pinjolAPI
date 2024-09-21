@@ -1,6 +1,7 @@
 package com.enigmacamp.loan_app.dto.response;
 
 import com.enigmacamp.loan_app.constant.ApprovalStatus;
+import com.enigmacamp.loan_app.entity.LoanTransaction;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,8 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TransactionResponse {
-
+public class LoanTransactionResponse {
     private String id;
     private String loanTypeId;
     private String instalmentTypeId;
@@ -22,7 +22,7 @@ public class TransactionResponse {
     private Long approvedAt;
     private String approvedBy;
     private ApprovalStatus approvalStatus;
-    private List<TransactionDetailResponse> transactionDetailResponses;
+    private List<LoanTransactionDetailResponse> transactionDetails;
     private Long createdAt;
     private Long updatedAt;
 }

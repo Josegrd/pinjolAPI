@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -34,11 +35,11 @@ public class LoanTransaction {
     private String approvedBy;
     private ApprovalStatus approvalStatus;
 
-    @OneToMany (mappedBy = "loanTransaction", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private List<LoanTransactionDetail> loanTransactionDetails;
 
     private Long createdAt;
     private Long updatedAt;
 
+    @OneToMany (mappedBy = "loanTransaction", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<LoanTransactionDetail> loanTransactionDetails = new ArrayList<>();
 }
