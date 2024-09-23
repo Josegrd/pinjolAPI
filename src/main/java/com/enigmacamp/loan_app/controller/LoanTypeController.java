@@ -4,6 +4,7 @@ import com.enigmacamp.loan_app.constant.PathApi;
 import com.enigmacamp.loan_app.dto.request.LoanTypeRequest;
 import com.enigmacamp.loan_app.dto.response.CommonResponse;
 import com.enigmacamp.loan_app.dto.response.LoanTypeResponse;
+import com.enigmacamp.loan_app.service.LoanService;
 import com.enigmacamp.loan_app.service.LoanTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LoanTypeController {
     private final LoanTypeService loanTypeService;
+    private final LoanService loanService;
 
     @PostMapping
     public ResponseEntity<?> createLoanType(@RequestBody LoanTypeRequest request) {

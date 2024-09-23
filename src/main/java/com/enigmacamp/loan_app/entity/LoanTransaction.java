@@ -1,6 +1,7 @@
 package com.enigmacamp.loan_app.entity;
 
 import com.enigmacamp.loan_app.constant.ApprovalStatus;
+import com.enigmacamp.loan_app.constant.TransactionStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -39,7 +40,9 @@ public class LoanTransaction {
     private Long createdAt;
     private Long updatedAt;
 
-    @OneToMany (mappedBy = "loanTransaction", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
+    @OneToMany (mappedBy = "loanTransaction", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<LoanTransactionDetail> loanTransactionDetails = new ArrayList<>();
+
+    private TransactionStatus transactionStatus = TransactionStatus.OPEN;
+    private Integer count;
 }

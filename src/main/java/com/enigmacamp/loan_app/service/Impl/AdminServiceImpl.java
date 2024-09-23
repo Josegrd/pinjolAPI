@@ -21,4 +21,10 @@ public class AdminServiceImpl implements AdminService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Admin already exists");
         }
     }
+
+
+    @Override
+    public Admin getById(String id) {
+        return null;
+    }
 }

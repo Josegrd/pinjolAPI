@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class PayInstalmentRequest {
-    private String id;
+    private String loanTransactionId;
+    private Integer interestRates;
 }

@@ -20,6 +20,6 @@ public class Staff {
     private String email;
 
     @OneToOne
-    @JoinColumn(name = "user_id_id")
+    @JoinColumn(name = "user_id")
     private User userId;
 }

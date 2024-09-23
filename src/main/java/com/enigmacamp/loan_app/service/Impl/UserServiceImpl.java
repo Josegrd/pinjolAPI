@@ -41,4 +41,10 @@ public class UserServiceImpl implements UserService {
                 .build();
         return appUser;
     }
+
+
+    @Override
+    public User findById(String userId) {
+        return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User type not found"));
+    }
 }

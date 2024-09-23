@@ -1,10 +1,9 @@
 package com.enigmacamp.loan_app.controller;
 
-import com.enigmacamp.loan_app.constant.ApprovalStatus;
-import com.enigmacamp.loan_app.constant.ERole;
-import com.enigmacamp.loan_app.constant.LoanStatus;
 import com.enigmacamp.loan_app.constant.PathApi;
+import com.enigmacamp.loan_app.dto.request.ApproveTransactionRequest;
 import com.enigmacamp.loan_app.dto.request.LoanTransactionRequest;
+import com.enigmacamp.loan_app.dto.response.CommonResponse;
 import com.enigmacamp.loan_app.dto.response.LoanTransactionDetailResponse;
 import com.enigmacamp.loan_app.dto.response.LoanTransactionResponse;
 import com.enigmacamp.loan_app.entity.LoanTransaction;
@@ -17,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -46,10 +46,40 @@ public class LoanController {
     }
 
 
+    @GetMapping
+    public ResponseEntity<List<LoanTransactionResponse>> getAllLoanTransaction() {
+        List<LoanTransaction> transactions = loanTransactionService.getAllLoanTransactions();
+
+        List<LoanTransactionResponse> responses = transactions.stream().map(this::convertToResponse).toList();
+        return ResponseEntity.ok(responses);
+    }
+
+    @PutMapping("approve/{adminId}")
+    public ResponseEntity<LoanTransactionResponse> approveLoanTransaction(@PathVariable String adminId, @RequestBody ApproveTransactionRequest request) {
+        LoanTransactionResponse transaction = loanTransactionService.approveTransactionLoan(request, adminId);
+        return ResponseEntity.ok(transaction);
+    }
+
+    @PutMapping("reject/{adminId}")
+    public ResponseEntity<LoanTransactionResponse> rejectLoanTransaction(@PathVariable String adminId, @RequestBody ApproveTransactionRequest request) {
+        LoanTransactionResponse transaction = loanTransactionService.approveTransactionLoan(request, adminId);
+        return ResponseEntity.ok(transaction);
+    }
+
+    @PutMapping("/{trxId}/pay")
+    public ResponseEntity<?> payInstallment(@PathVariable String trxId) {
+        String response = loanTransactionService.payInstallment(trxId);
+        CommonResponse commonResponse = new CommonResponse(HttpStatus.OK.value(),"Installment has been paid", response);
+        return ResponseEntity.ok(commonResponse);
+    }
 
     private LoanTransactionResponse convertToResponse(LoanTransaction transaction) {
-        List<LoanTransactionDetailResponse> loanTransactionDetailRespons = transaction.getLoanTransactionDetails().stream()
-                .map(this::converToLoanTransactionDetail).toList();
+        List<LoanTransactionDetailResponse> loanTransactionDetailRespons =
+                transaction.getLoanTransactionDetails() != null && !transaction.getLoanTransactionDetails().isEmpty()
+                        ? transaction.getLoanTransactionDetails().stream()
+                        .map(this::converToLoanTransactionDetail)
+                        .toList()
+                        : new ArrayList<>();
 
         return LoanTransactionResponse.builder()
                 .id(transaction.getId())
