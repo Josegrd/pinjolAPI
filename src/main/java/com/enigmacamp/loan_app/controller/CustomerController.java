@@ -5,9 +5,12 @@ import com.enigmacamp.loan_app.dto.request.CustomerRequest;
 import com.enigmacamp.loan_app.dto.response.CommonResponse;
 import com.enigmacamp.loan_app.dto.response.CustomerResponse;
 import com.enigmacamp.loan_app.service.CustomerService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +18,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(PathApi.CUSTOMER)
-//@RequestMapping("api/v1/customers")
 public class CustomerController {
     private final CustomerService customerService;
 

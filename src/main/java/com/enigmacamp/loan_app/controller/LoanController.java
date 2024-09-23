@@ -10,10 +10,12 @@ import com.enigmacamp.loan_app.entity.LoanTransaction;
 import com.enigmacamp.loan_app.entity.LoanTransactionDetail;
 import com.enigmacamp.loan_app.service.LoanService;
 import com.enigmacamp.loan_app.service.LoanTransactionService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,13 +24,15 @@ import java.util.List;
 @RestController
 @RequestMapping(PathApi.LOAN)
 @RequiredArgsConstructor
+@SecurityRequirement(name = "Bearer Authentication")
 @Slf4j
 public class LoanController {
     private final LoanService loanService;
     private final LoanTransactionService loanTransactionService;
 
     @PostMapping
-    public ResponseEntity<LoanTransactionResponse> addOneMonthLoanTransaction(@RequestBody LoanTransactionRequest request) {
+    @PreAuthorize("hasAnyRole('ADMIN', 'CUSTOMER')")
+    public ResponseEntity<LoanTransactionResponse> addLoanTransaction(@RequestBody LoanTransactionRequest request) {
         try {
             LoanTransaction transaction = loanTransactionService.addLoanTransaction(request);
             LoanTransactionResponse response = convertToResponse(transaction);
@@ -55,6 +59,7 @@ public class LoanController {
     }
 
     @PutMapping("approve/{adminId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     public ResponseEntity<LoanTransactionResponse> approveLoanTransaction(@PathVariable String adminId, @RequestBody ApproveTransactionRequest request) {
         LoanTransactionResponse transaction = loanTransactionService.approveTransactionLoan(request, adminId);
         return ResponseEntity.ok(transaction);

@@ -6,9 +6,11 @@ import com.enigmacamp.loan_app.dto.response.CommonResponse;
 import com.enigmacamp.loan_app.dto.response.LoanTypeResponse;
 import com.enigmacamp.loan_app.service.LoanService;
 import com.enigmacamp.loan_app.service.LoanTypeService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,11 +18,13 @@ import java.util.List;
 @RestController
 @RequestMapping(PathApi.LOAN_TYPE)
 @RequiredArgsConstructor
+@SecurityRequirement(name = "Bearer Authentication")
 public class LoanTypeController {
     private final LoanTypeService loanTypeService;
     private final LoanService loanService;
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     public ResponseEntity<?> createLoanType(@RequestBody LoanTypeRequest request) {
         LoanTypeResponse response = loanTypeService.createLoanType(request);
         CommonResponse<LoanTypeResponse> commonResponse = CommonResponse.<LoanTypeResponse>builder()
@@ -54,6 +58,7 @@ public class LoanTypeController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
     public ResponseEntity<?> updateLoanType(@RequestBody LoanTypeRequest request) {
         LoanTypeResponse response = loanTypeService.updateLoanType(request);
         CommonResponse<LoanTypeResponse> commonResponse = CommonResponse.<LoanTypeResponse>builder()
